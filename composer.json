@@ -23,12 +23,12 @@
     },
     "autoload":     {
         "psr-4": {
-            "CS\\AdminListBundle\\": "src/"
+            "Creativestyle\\AdminListBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CS\\AdminListBundle\\Tests\\": "tests/"
+            "Creativestyle\\AdminListBundle\\Tests\\": "tests/"
         }
     }
 }
