@@ -1,0 +1,13 @@
+
+<a href="{{ app.request|modify_query({(order_parameter): field, (direction_parameter): new_direction}) }}"
+   class="{% if active %}active{% endif %}">
+    {{ label }}
+    {% if active %}
+        {% if is_asc %}
+            ▼
+        {% endif %}
+        {% if is_desc %}
+            ▲
+        {% endif %}
+    {% endif %}
+</a>

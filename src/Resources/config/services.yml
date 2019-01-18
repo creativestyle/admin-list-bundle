@@ -1,0 +1,22 @@
+services:
+    creativestyle_admin_list.twig.extension:
+        class: Creativestyle\AdminListBundle\Twig\AdminListExtension
+        arguments:
+            - '@security.csrf.token_manager'
+        tags:
+            - { name: twig.extension }
+
+    creativestyle_admin_list.filter_manager:
+        class: Creativestyle\AdminListBundle\Filter\FilterManager
+        shared: false
+        public: true
+        arguments:
+            - '@request_stack'
+            - '@templating'
+
+    Creativestyle\AdminListBundle\Filter\FilterManager: '@creativestyle_admin_list.filter_manager'
+
+    form.extension.creativestyle_admin_list_help:
+        class: Creativestyle\AdminListBundle\Form\Extension\HelpExtension
+        tags:
+            - { name: form.type_extension }

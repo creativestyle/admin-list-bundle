@@ -1,0 +1,74 @@
+{#
+ # Produces "sliding" pagination controls which include next/prev buttons, first page, last page
+ # and a defined number of "proximity page" around the current one.
+#}
+
+<div>
+    {% if total_count == 0 %}
+        {% trans %}No results matching selected criteria found{% endtrans %}
+    {% else %}
+            <div>
+                {% if page_count > 1 %}
+                    {% if previous is defined %}
+                        <a href="{{ app.request|modify_query({(page_parameter): previous}) }}">
+                            ←
+                        </a>
+                    {% endif %}
+
+                    {% if start_page > 1 %}
+                        {% if current == start_page %}
+                            <a href="#">1</a>
+                        {% else %}
+                            <a href="{{ app.request|modify_query({(page_parameter): 1}) }}">1</a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if start_page > 2 %}
+                        …
+                    {% endif %}
+
+                    {% for page in start_page..end_page %}
+                        {% if current != page %}
+                            <a href="{{ app.request|modify_query({(page_parameter): page}) }}">{{ page }}</a>
+                        {% else %}
+                            {{ page }}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if end_page < (page_count - 1) %}
+                        …
+                    {% endif %}
+
+                    {% if end_page < page_count %}
+                        {% if current == end_page %}
+                            {{ page_count }}
+                        {% else %}
+                            <a href="{{ app.request|modify_query({(page_parameter): page_count}) }}">{{ page_count }}</a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if next is defined %}
+                        <a href="{{ app.request|modify_query({(page_parameter): next}) }}">
+                            →
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div>
+                {% set from_index = (current - 1) * limit %}
+                {% set to_item = from_index + limit %}
+
+                {% if to_item > total_count %}
+                    {% set to_item = total_count %}
+                {% endif %}
+
+                <div>
+                    {% if from_index != 0 or to_item != total_count %}
+                        {{ 'Showing %from% to %to% from %total% total results'|trans({'%from%': from_index + 1, '%to%' : to_item, '%total%': total_count})|raw }}
+                    {% else %}
+                        {{ 'Showing all %total% results'|trans({'%total%': total_count})|raw }}
+                    {% endif %}
+                </div>
+            </div>
+    {% endif %}
+</div>

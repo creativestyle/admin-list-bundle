@@ -1,0 +1,12 @@
+<div>
+    {% if options.empty_label %}
+        <a class="{% if value == options.empty_value %}active{% endif %}" href="{{ app.request|modify_query({(name): options.empty_value, (page_parameter): null}) }}">
+            {{ options.empty_label }}
+        </a>
+    {% endif %}
+    {% for choice, label in options.choices  %}
+        <a class="{% if value == choice %}active{% endif %}"  href="{{ app.request|modify_query({(name): choice, (page_parameter): null}) }}">
+            {{ label }}
+        </a>
+    {% endfor %}
+</div>

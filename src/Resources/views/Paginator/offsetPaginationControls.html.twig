@@ -1,0 +1,47 @@
+{#
+ # Produces "offset" pagination controls for pagination which doesn't count the results due
+ # to performance considerations.
+#}
+
+{% if page != 1 or has_next_page or count == 0 %}
+    <div>
+        {% if count == 0 %}
+            {% trans %}No results matching selected criteria found{% endtrans %}
+        {% else %}
+            {% if page > 1 %}
+                <a href="{{ app.request|modify_query({(page_parameter): page - 1}) }}">
+                    ←
+                </a>
+            {% endif %}
+
+            {% if start_page > 1 %}
+                {% if page == start_page %}
+                    1
+                {% else %}
+                    <a href="{{ app.request|modify_query({(page_parameter): 1}) }}">1</a>
+                {% endif %}
+            {% endif %}
+
+            {% if start_page > 2 %}
+                …
+            {% endif %}
+
+            {% if page > 1 %}
+                {% for p in start_page..(page - 1) %}
+                    {% if page != p %}
+                        <a href="{{ app.request|modify_query({(page_parameter): p}) }}">{{ p }}</a>
+                    {% else %}
+                        {{ p }}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {{ page }}
+
+            {% if has_next_page %}
+                <a href="{{ app.request|modify_query({(page_parameter): page + 1}) }}">{{ page + 1 }}</a>
+                <a href="{{ app.request|modify_query({(page_parameter): page + 1}) }}">→</a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}

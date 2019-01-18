@@ -1,0 +1,34 @@
+{
+    "name": "creativestyle/admin-list-bundle",
+    "description": "Bundle for making admin listings fast & easy",
+    "keywords": ["bundle", "symfony", "admin", "list", "filter", "search"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Filip Sobalski",
+            "email": "filip.sobalski@creativestyle.pl",
+            "homepage": "http://creativestyle.pl"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "doctrine/orm": "~2.3",
+        "symfony/templating": "^4",
+        "symfony/twig-bridge": "^4",
+        "symfony/options-resolver": "^4",
+        "creativestyle/utilities": "~2.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.2"
+    },
+    "autoload":     {
+        "psr-4": {
+            "CS\\AdminListBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CS\\AdminListBundle\\Tests\\": "tests/"
+        }
+    }
+}

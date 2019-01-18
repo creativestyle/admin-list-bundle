@@ -1,0 +1,23 @@
+<form method="get">
+    {% if value %}
+        <span class="input-group-btn">
+            <a href="{{ app.request|modify_query({(name): null}) }}">
+                ✕
+            </a>
+        </span>
+    {% endif %}
+
+    <input name="{{ name }}" type="text" value="{{ value }}" placeholder="{{ label }}"/>
+
+    <button title="Search" type="submit">
+        {{ 'Search'|trans }}
+    </button>
+
+    {% for key, value in app.request.query.all if key != name and key != page_parameter %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}"/>
+    {% endfor %}
+
+    {% if options.wildcard|default(false) %}
+        <small>{% trans %}You can use wildcard character{% endtrans %} (<strong>*</strong>)</small>
+    {% endif %}
+</form>

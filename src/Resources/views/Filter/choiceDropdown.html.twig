@@ -1,0 +1,24 @@
+{% set is_empty = options.empty_value == value %}
+
+<div>
+    <button class="{% if value != options.empty_value %}active{% endif %}{% if options.disabled %}disabled{% endif %}">
+        {% if is_empty %}
+            {{ options.empty_label }}
+        {% else %}
+            {{ options.choices[value] }}
+        {% endif %}
+        {% if not options.disabled %}▾{% endif %}
+    </button>
+    <div class="{{ options.menu_align }}">
+        {% if options.empty_label and not is_empty %}
+            <a href="{{ app.request|modify_query({(name): options.empty_value, (page_parameter): null}) }}">
+                {{ options.empty_label }}
+            </a>
+        {% endif %}
+        {% for choice, label in options.choices if choice != value %}
+            <a href="{{ app.request|modify_query({(name): choice, (page_parameter): null}) }}">
+                {{ label }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
