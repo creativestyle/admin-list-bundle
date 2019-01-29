@@ -20,3 +20,8 @@ services:
         class: Creativestyle\AdminListBundle\Form\Extension\HelpExtension
         tags:
             - { name: form.type_extension }
+
+    form.extension.creativestyle_admin_list_icon:
+        class: Creativestyle\AdminListBundle\Form\Extension\IconExtension
+        tags:
+        - { name: form.type_extension }
